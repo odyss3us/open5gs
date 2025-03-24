@@ -111,7 +111,6 @@ void smf_gx_send_ccr(smf_sess_t *sess, ogs_pool_id_t xact_id,
     char buf[OGS_PLMNIDSTRLEN];
     struct sockaddr_in sin;
     struct sockaddr_in6 sin6;
-    uint32_t charging_id;
     uint32_t req_slot;
 
     ogs_assert(sess);
@@ -662,6 +661,7 @@ void smf_gx_send_ccr(smf_sess_t *sess, ogs_pool_id_t xact_id,
         }
 
         /* Set Access-Network-Charging-Identitifer-Gx */
+	/*
         ret = fd_msg_avp_new(
                 ogs_diam_gx_access_network_charging_identifier_gx, 0, &avp);
         ogs_assert(ret == 0);
@@ -680,7 +680,7 @@ void smf_gx_send_ccr(smf_sess_t *sess, ogs_pool_id_t xact_id,
 
         ret = fd_msg_avp_add(req, MSG_BRW_LAST_CHILD, avp);
         ogs_assert(ret == 0);
-
+	*/
         /*
          * TS 29.274 version 16.11.0, Table 7.2.1-1,
          * GTPv2 RAT Type: The ePDG may use the access technology type of the
@@ -753,6 +753,8 @@ static void smf_gx_cca_cb(void *data, struct msg **msg)
     ogs_diam_gx_message_t *gx_message = NULL;
     uint32_t req_slot, cc_request_number = 0;
 
+    ogs_log_message(OGS_LOG_ERROR, 0 ,
+                "TEST ERROR MESSAGE FROM DIAMETER");
     ogs_debug("[Credit-Control-Answer]");
 
     ret = clock_gettime(CLOCK_REALTIME, &ts);
